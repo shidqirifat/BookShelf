@@ -1,0 +1,84 @@
+const STORAGE_KEY = "BOOK_APPS";
+
+let bookRead = [];
+
+function refreshDataFromBookRead() {
+    const listUncompleted = document.getElementById(UNCOMPLETED_LIST_BOOK_ID);
+    let listCompleted = document.getElementById(COMPLETED_LIST_BOOK_ID);
+  
+    for (book of bookRead){
+        
+        const newBook = makeNewBook(book.title, book.author, book.year, book.isCompleted);
+        newBook[BOOK_ITEMID] = book.id;
+        
+        if(book.isCompleted){
+            listCompleted.append(newBook);
+        } else {
+            listUncompleted.append(newBook);
+        }
+    }
+}
+
+function saveData() {
+    const parsed = JSON.stringify(bookRead);
+    localStorage.setItem(STORAGE_KEY, parsed);
+    // Buat event custom bernama "ondatasaved"
+    document.dispatchEvent(new Event("ondatasaved"));
+}
+
+function updateDataToStorage() {
+    if(isStorageExist())
+        saveData();
+ }
+
+function isStorageExist() /* boolean */ {
+    if(typeof(Storage) === undefined){
+        alert("Browser kamu tidak mendukung local storage");
+        return false
+    }
+    // Kembalikan true jika mendukung
+    return true;
+}
+
+function findBook(bookId) {
+    for(book of bookRead){
+        if(book.id === bookId)
+            return book;
+    }
+    return null;
+ }
+  
+ // Mencari index todo dari array todos sesuai id
+ function findBookIndex(bookId) {
+    let index = 0
+    for (book of bookRead) {
+        if(book.id === bookId)
+            return index;
+  
+        index++;
+    }
+  
+    return -1;
+ }
+
+
+function composeTodoObject(title, author, year, isCompleted) {
+    return {
+        id: +new Date(),
+        title,
+        author,
+        year,
+        isCompleted
+    };
+}
+
+function loadDataFromStorage() {
+    const serializedData = localStorage.getItem(STORAGE_KEY);
+    
+    let data = JSON.parse(serializedData);
+
+    if (serializedData !== null) bookRead = data;
+
+    // Buat event custom bernama "ondataloaded"
+    document.dispatchEvent(new Event("ondataloaded"));
+}
