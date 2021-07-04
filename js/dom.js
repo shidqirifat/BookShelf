@@ -17,21 +17,16 @@ function makeNewBook(title, author, year, isCompleted) {
     bookContainer.classList.add("item");
     bookContainer.append(bookTitle, bookAuthor, bookYear);
 
-    
-
     if(isCompleted){
-        // Tampilkan button undo dan trash
         bookContainer.append(
             createUndoButton(),
             createTrashButton()
         );
     } else {
-        // Tampilkan button cek selesai
         bookContainer.append(
             createCheckButton()
         );
     }
-
     return bookContainer;
 }
 
@@ -41,22 +36,19 @@ function createUndoButton() {
     });
 }
 
-// Buat button trash
 function createTrashButton() {
     return createButton("trash-button", function(event){
         removeBookFromCompleted(event.target.parentElement);
     });
 }
 
-// Buat button cek
 function createCheckButton() {
     return createButton("check-button", function(event){
         addBookToCompleted(event.target.parentElement);
     });
 }
 
-// Buat button umum
-function createButton(buttonTypeClass /* string */, eventListener /* callback function */) {
+function createButton(buttonTypeClass, eventListener) {
     const button = document.createElement("button");
     button.classList.add(buttonTypeClass);
     button.addEventListener("click", function (event) {
@@ -81,35 +73,26 @@ function addBook() {
     updateDataToStorage();
 }
 
-
-function addBookToCompleted(taskElement /* HTMLELement */) {
+function addBookToCompleted(taskElement) {
     const listCompleted = document.getElementById(COMPLETED_LIST_BOOK_ID);
     const bookTitle = taskElement.querySelector(".item h3").innerText;
     
     const bookAuthor = taskElement.querySelector(".item h4").innerText.substr(9);
     const bookYear = taskElement.querySelector(".item p").innerText.substr(7);
 
-   
-    
-
     const newBook = makeNewBook(bookTitle, bookAuthor, bookYear, true);
     const book = findBook(taskElement[BOOK_ITEMID]);
     book.isCompleted = true;
     newBook[BOOK_ITEMID] = book.id;
 
-    console.log(listCompleted);
-
-    listCompleted.append(newBook);
-    
+    listCompleted.append(newBook); 
     taskElement.remove();
 
     updateDataToStorage();
 }
 
-// Hapus todo setelah selesai
-function removeBookFromCompleted(taskElement /* HTMLELement */) {
+function removeBookFromCompleted(taskElement) {
     const bookPosition = findBookIndex(taskElement[BOOK_ITEMID]);
-    // hapus data dari array TODO berdasarkan index yang diperoleh dari findTodoIndex()
     bookRead.splice(bookPosition, 1);  
 
     taskElement.remove();
@@ -117,8 +100,7 @@ function removeBookFromCompleted(taskElement /* HTMLELement */) {
     updateDataToStorage();
 }
 
-// Undo todo dari selesai ke harus dikerjakan, hapus dari selesai
-function undoBookFromCompleted(taskElement /* HTMLELement */){
+function undoBookFromCompleted(taskElement){
     const listUncompleted = document.getElementById(UNCOMPLETED_LIST_BOOK_ID);
     const bookTitle = taskElement.querySelector(".item h3").innerText;
     const bookAuthor = taskElement.querySelector(".item h4").innerText.substr(9);
