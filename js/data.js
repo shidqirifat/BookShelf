@@ -7,7 +7,6 @@ function refreshDataFromBookRead() {
     let listCompleted = document.getElementById(COMPLETED_LIST_BOOK_ID);
   
     for (book of bookRead){
-        
         const newBook = makeNewBook(book.title, book.author, book.year, book.isCompleted);
         newBook[BOOK_ITEMID] = book.id;
         
@@ -22,7 +21,6 @@ function refreshDataFromBookRead() {
 function saveData() {
     const parsed = JSON.stringify(bookRead);
     localStorage.setItem(STORAGE_KEY, parsed);
-    // Buat event custom bernama "ondatasaved"
     document.dispatchEvent(new Event("ondatasaved"));
 }
 
@@ -31,12 +29,12 @@ function updateDataToStorage() {
         saveData();
  }
 
-function isStorageExist() /* boolean */ {
+function isStorageExist(){
     if(typeof(Storage) === undefined){
         alert("Browser kamu tidak mendukung local storage");
         return false
     }
-    // Kembalikan true jika mendukung
+    
     return true;
 }
 
@@ -48,19 +46,16 @@ function findBook(bookId) {
     return null;
  }
   
- // Mencari index todo dari array todos sesuai id
  function findBookIndex(bookId) {
     let index = 0
     for (book of bookRead) {
-        if(book.id === bookId)
-            return index;
-  
+        if(book.id === bookId) return index;
+
         index++;
     }
   
     return -1;
  }
-
 
 function composeTodoObject(title, author, year, isCompleted) {
     return {
@@ -74,11 +69,9 @@ function composeTodoObject(title, author, year, isCompleted) {
 
 function loadDataFromStorage() {
     const serializedData = localStorage.getItem(STORAGE_KEY);
-    
     let data = JSON.parse(serializedData);
 
     if (serializedData !== null) bookRead = data;
 
-    // Buat event custom bernama "ondataloaded"
     document.dispatchEvent(new Event("ondataloaded"));
 }
