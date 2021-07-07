@@ -24,7 +24,8 @@ function makeNewBook(title, author, year, isCompleted) {
         );
     } else {
         bookContainer.append(
-            createCheckButton()
+            createCheckButton(),
+            createTrashButton()
         );
     }
     return bookContainer;
