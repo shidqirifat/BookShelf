@@ -1,38 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bookshelf Apps</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <header>
-        <div class="header-container">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bookshelf Apps</title>
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+    <body>
+        <header class="header-container">
             <h1>Bookshelf Apps</h1>
-        </div>
-    </header>
 
-    <main>
-        
+            <form action="#" id="search">
+                <input
+                    type="text"
+                    id="search-keyword"
+                    placeholder="Cari buku ..."
+                />
+            </form>
+        </header>
+
+        <main>
             <section class="content-container add-book">
                 <h2>Masukkan buku yang ingin dibaca</h2>
 
                 <form action="#" class="form" id="form">
                     <div class="form-group form-title">
                         <label for="title">Judul</label>
-                        <input type="text" name="title" id="title" required>
+                        <input type="text" name="title" id="title" required />
                     </div>
                     <div class="form-group form-author">
                         <label for="author">Penulis</label>
-                        <input type="text" name="author" id="author" required>
+                        <input type="text" name="author" id="author" required />
                     </div>
                     <div class="form-group form-year">
                         <label for="year">Tahun</label>
-                        <input type="text" name="year" id="year" required>
+                        <input type="number" name="year" id="year" required />
                     </div>
-                    <input type="submit" value="Submit" name="Submit" class="btn-submit">
+                    <button type="submit" class="btn-submit">Submit</button>
                 </form>
             </section>
 
@@ -40,9 +45,7 @@
                 <div class="uncomplete-book">
                     <h2>Sedang Dibaca</h2>
 
-                    <div class="list-book" id="read">
-
-                    </div>
+                    <div class="list-book" id="read"></div>
                 </div>
             </section>
 
@@ -50,20 +53,28 @@
                 <div class="complete-book">
                     <h2>Selesai Dibaca</h2>
 
-                    <div class="list-done" id="done">
-
-                    </div>
+                    <div class="list-done" id="done"></div>
                 </div>
             </section>
-        
-    </main>
 
-    <footer>
+            <div id="shadow-overlay"></div>
+            <div id="message-confirmation">
+                <h2></h2>
+                <div class="btn-wrapper">
+                    <button id="btn-cancel">Batal</button>
+                    <button id="btn-delete">Hapus</button>
+                </div>
+            </div>
 
-    </footer>
+            <div id="feedback-action">
+                <h2></h2>
+            </div>
+        </main>
 
-    <script src="js/data.js"></script>
-    <script src="js/dom.js"></script>
-    <script src="js/main.js"></script>
-</body>
+        <footer></footer>
+
+        <script src="js/data.js"></script>
+        <script src="js/dom.js"></script>
+        <script src="js/main.js"></script>
+    </body>
 </html>
